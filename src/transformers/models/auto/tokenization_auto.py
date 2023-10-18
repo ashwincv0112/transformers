@@ -651,7 +651,9 @@ class AutoTokenizer:
         >>> # Download vocabulary from huggingface.co and define model-specific arguments
         >>> tokenizer = AutoTokenizer.from_pretrained("roberta-base", add_prefix_space=True)
         ```"""
+        print("--------- Came to the AutoTokenizer class inside tokenizer_auto.py file -------------")
         use_auth_token = kwargs.pop("use_auth_token", None)
+        print(f"use_auth_token: {use_auth_token}")
         if use_auth_token is not None:
             warnings.warn(
                 "The `use_auth_token` argument is deprecated and will be removed in v5 of Transformers.", FutureWarning
@@ -664,16 +666,23 @@ class AutoTokenizer:
 
         config = kwargs.pop("config", None)
         kwargs["_from_auto"] = True
-
+        print(f"Extra parameters: {kwargs}")
         use_fast = kwargs.pop("use_fast", True)
+        print(f"use_fast: {use_fast}")
         tokenizer_type = kwargs.pop("tokenizer_type", None)
         trust_remote_code = kwargs.pop("trust_remote_code", None)
 
+        print('-'*20)
+        print(f"tokenizer_type: {tokenizer_type}")
+        print('-'*10)
+        print(f"TOKENIZER_MAPPING_NAMES values: {TOKENIZER_MAPPING_NAMES}")
+        print('-'*10)
+        
         # First, let's see whether the tokenizer_type is passed so that we can leverage it
         if tokenizer_type is not None:
             tokenizer_class = None
             tokenizer_class_tuple = TOKENIZER_MAPPING_NAMES.get(tokenizer_type, None)
-
+            print(f"tokenizer_class_tuple: {tokenizer_class_tuple}")
             if tokenizer_class_tuple is None:
                 raise ValueError(
                     f"Passed `tokenizer_type` {tokenizer_type} does not exist. `tokenizer_type` should be one of "
@@ -700,6 +709,7 @@ class AutoTokenizer:
 
         # Next, let's try to use the tokenizer_config file to get the tokenizer class.
         tokenizer_config = get_tokenizer_config(pretrained_model_name_or_path, **kwargs)
+        print(f"tokenizer_config information: {tokenizer_config}")
         if "_commit_hash" in tokenizer_config:
             kwargs["_commit_hash"] = tokenizer_config["_commit_hash"]
         config_tokenizer_class = tokenizer_config.get("tokenizer_class")
