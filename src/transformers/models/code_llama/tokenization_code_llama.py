@@ -56,7 +56,7 @@ correct. If you don't know the answer to a question, please don't share false in
 # fmt: on
 
 
-class CodeLlamaTokenizer(PreTrainedTokenizer):
+class LlamaTokenizer(PreTrainedTokenizer):
     """
     Construct a CodeLlama tokenizer. Based on byte-level Byte-Pair-Encoding. The default padding token is unset as
     there is no padding token in the original model.
