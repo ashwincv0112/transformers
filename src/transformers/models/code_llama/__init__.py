@@ -24,7 +24,7 @@ try:
 except OptionalDependencyNotAvailable:
     pass
 else:
-    _import_structure["tokenization_code_llama"] = ["CodeLlamaTokenizer"]
+    _import_structure["tokenization_code_llama"] = ["LlamaTokenizer"]
 
 try:
     if not is_tokenizers_available():
@@ -32,7 +32,7 @@ try:
 except OptionalDependencyNotAvailable:
     pass
 else:
-    _import_structure["tokenization_code_llama_fast"] = ["CodeLlamaTokenizerFast"]
+    _import_structure["tokenization_code_llama_fast"] = ["LlamaTokenizerFast"]
 
 if TYPE_CHECKING:
     try:
@@ -41,7 +41,7 @@ if TYPE_CHECKING:
     except OptionalDependencyNotAvailable:
         pass
     else:
-        from .tokenization_code_llama import CodeLlamaTokenizer
+        from .tokenization_code_llama import LlamaTokenizer
 
     try:
         if not is_tokenizers_available():
@@ -49,7 +49,7 @@ if TYPE_CHECKING:
     except OptionalDependencyNotAvailable:
         pass
     else:
-        from .tokenization_code_llama_fast import CodeLlamaTokenizerFast
+        from .tokenization_code_llama_fast import LlamaTokenizerFast
 
 else:
     import sys
