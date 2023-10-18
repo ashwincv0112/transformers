@@ -459,11 +459,16 @@ def load_state_dict(checkpoint_file: Union[str, os.PathLike]):
     """
     Reads a PyTorch checkpoint file, returning properly formatted errors if they arise.
     """
+    print("Came to the load_state_dict function")
     if checkpoint_file.endswith(".safetensors") and is_safetensors_available():
+        print(f"First IF condition satisfying")
+        
         # Check format of the archive
         with safe_open(checkpoint_file, framework="pt") as f:
             metadata = f.metadata()
+            print(g"Metadata extracted: {metadata}")
         if metadata.get("format") not in ["pt", "tf", "flax"]:
+            print(f"Error format found")
             raise OSError(
                 f"The safetensors archive passed at {checkpoint_file} does not contain the valid metadata. Make sure "
                 "you save your model with the `save_pretrained` method."
@@ -2463,7 +2468,13 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
         Currently, it can't handle deepspeed ZeRO stage 3 and ignores loading errors
 
         """
+        print("-"*100)
+        print(f"---------- Pretrained function call is here in model_utils.py file --------------------")
+        print("-"*50)
+        
         state_dict = kwargs.pop("state_dict", None)
+        print(f"state_dict: {state_dict}")
+        
         from_tf = kwargs.pop("from_tf", False)
         from_flax = kwargs.pop("from_flax", False)
         resume_download = kwargs.pop("resume_download", False)
@@ -3706,6 +3717,7 @@ class PreTrainedModel(nn.Module, ModuleUtilsMixin, GenerationMixin, PushToHubMix
                 # Skip the load for shards that only contain disk-offloaded weights when using safetensors for the offload.
                 if shard_file in disk_only_shard_files:
                     continue
+                print(f"shard_file: {shard_file})
                 state_dict = load_state_dict(shard_file)
 
                 # Mistmatched keys contains tuples key/shape1/shape2 of weights in the checkpoint that have a shape not
