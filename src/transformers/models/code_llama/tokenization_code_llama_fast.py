@@ -26,9 +26,9 @@ from ...utils.versions import require_version
 require_version("tokenizers>=0.13.3")
 
 if is_sentencepiece_available():
-    from .tokenization_code_llama import CodeLlamaTokenizer
+    from .tokenization_code_llama import LlamaTokenizer
 else:
-    CodeLlamaTokenizer = None
+    LlamaTokenizer = None
 
 logger = logging.get_logger(__name__)
 VOCAB_FILES_NAMES = {"vocab_file": "tokenizer.model", "tokenizer_file": "tokenizer.json"}
@@ -49,7 +49,7 @@ correct. If you don't know the answer to a question, please don't share false in
 # fmt: on
 
 
-class CodeLlamaTokenizerFast(PreTrainedTokenizerFast):
+class LlamaTokenizerFast(PreTrainedTokenizerFast):
     """
     Construct a Llama tokenizer. Based on byte-level Byte-Pair-Encoding.
 
@@ -112,7 +112,7 @@ class CodeLlamaTokenizerFast(PreTrainedTokenizerFast):
     """
 
     vocab_files_names = VOCAB_FILES_NAMES
-    slow_tokenizer_class = CodeLlamaTokenizer
+    slow_tokenizer_class = LlamaTokenizer
     padding_side = "left"
     model_input_names = ["input_ids", "attention_mask"]
 
