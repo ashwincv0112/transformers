@@ -459,16 +459,11 @@ def load_state_dict(checkpoint_file: Union[str, os.PathLike]):
     """
     Reads a PyTorch checkpoint file, returning properly formatted errors if they arise.
     """
-    print("Came to the load_state_dict function")
     if checkpoint_file.endswith(".safetensors") and is_safetensors_available():
-        print(f"First IF condition satisfying")
-        
         # Check format of the archive
         with safe_open(checkpoint_file, framework="pt") as f:
             metadata = f.metadata()
-            print(g"Metadata extracted: {metadata}")
         if metadata.get("format") not in ["pt", "tf", "flax"]:
-            print(f"Error format found")
             raise OSError(
                 f"The safetensors archive passed at {checkpoint_file} does not contain the valid metadata. Make sure "
                 "you save your model with the `save_pretrained` method."
